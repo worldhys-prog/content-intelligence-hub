@@ -582,7 +582,7 @@ function renderItems(filter) {
     const meta = CAT_META[r.category] || { emoji: "📦", badge: "badge-other" };
     const pClass = r.priority === "High" ? "priority-high" : r.priority === "Medium" ? "priority-medium" : "priority-low";
     const dupTag = r.duplicate === "Yes" ? " 🔁" : "";
-    const dateStr = r.timestamp ? new Date(r.timestamp).toLocaleDateString("en-IN") : "";
+    const dateStr = r.timestamp ? r.timestamp.toString().split(",")[0] : "";
     return `<div class="item-card">
       <div>
         <div class="item-badge ${meta.badge}">${meta.emoji} ${r.category}</div>
