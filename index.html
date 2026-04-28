@@ -175,7 +175,6 @@
   }
 
   .chart-title .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
-
   canvas { max-height: 220px; }
 
   .strategy-section { margin-bottom: 2rem; }
@@ -237,6 +236,9 @@
   }
 
   .item-card:hover { border-color: var(--accent); }
+  .item-card.overdue { border-color: var(--accent4); }
+  .item-card.implemented { border-color: var(--accent3); opacity: 0.7; }
+  .item-card.skipped { opacity: 0.4; }
 
   .item-badge {
     padding: 0.25rem 0.6rem;
@@ -269,6 +271,8 @@
 
   .item-summary { font-size: 0.82rem; line-height: 1.5; color: var(--text); }
 
+  .item-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.25rem; }
+
   .item-action {
     font-family: 'Space Mono', monospace;
     font-size: 0.6rem;
@@ -277,10 +281,54 @@
     white-space: nowrap;
   }
 
-  .item-priority { font-size: 0.6rem; margin-top: 0.25rem; text-align: right; }
+  .item-priority { font-size: 0.6rem; text-align: right; }
   .priority-high { color: var(--accent4); }
   .priority-medium { color: var(--accent2); }
   .priority-low { color: var(--accent3); }
+
+  .item-status {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    text-align: right;
+  }
+
+  .status-pending { background: rgba(247,201,106,0.15); color: var(--accent2); }
+  .status-reviewed { background: rgba(124,106,247,0.15); color: var(--accent); }
+  .status-implemented { background: rgba(106,247,184,0.15); color: var(--accent3); }
+  .status-skipped { background: rgba(107,109,128,0.15); color: var(--muted); }
+
+  .item-days {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  .item-days.overdue-text { color: var(--accent4); font-weight: 700; }
+
+  .trend-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .trend-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    transition: border-color 0.2s;
+  }
+
+  .trend-card:hover { border-color: var(--accent); }
+  .trend-emoji { font-size: 1.5rem; margin-bottom: 0.4rem; }
+  .trend-name { font-size: 0.78rem; font-weight: 600; margin-bottom: 0.25rem; }
+  .trend-count { font-family: 'Space Mono', monospace; font-size: 1.4rem; font-weight: 700; color: var(--accent); }
+  .trend-label { font-size: 0.65rem; color: var(--muted); }
 
   .empty-state {
     text-align: center;
@@ -290,8 +338,6 @@
     border: 1px dashed var(--border);
     border-radius: 12px;
   }
-
-  .empty-state .emoji { font-size: 2.5rem; margin-bottom: 0.5rem; display: block; }
 
   .loading {
     display: flex;
@@ -313,41 +359,6 @@
   }
 
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  .trend-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.75rem;
-    margin-bottom: 2rem;
-  }
-
-  .trend-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1rem;
-    text-align: center;
-    transition: border-color 0.2s;
-  }
-
-  .trend-card:hover { border-color: var(--accent); }
-
-  .trend-emoji { font-size: 1.5rem; margin-bottom: 0.4rem; }
-  .trend-name { font-size: 0.78rem; font-weight: 600; margin-bottom: 0.25rem; }
-  .trend-count { font-family: 'Space Mono', monospace; font-size: 1.4rem; font-weight: 700; color: var(--accent); }
-  .trend-label { font-size: 0.65rem; color: var(--muted); }
-
-  .error-banner {
-    background: rgba(247,106,138,0.1);
-    border: 1px solid var(--accent4);
-    border-radius: 10px;
-    padding: 0.75rem 1.25rem;
-    margin-bottom: 1.5rem;
-    font-size: 0.8rem;
-    color: var(--accent4);
-    font-family: 'Space Mono', monospace;
-    display: none;
-  }
 
   footer {
     text-align: center;
@@ -385,10 +396,6 @@
 
 <div class="main">
 
-  <div class="error-banner" id="errorBanner">
-    ⚠️ Could not connect to Apps Script. Check your URL or CORS settings.
-  </div>
-
   <div class="kpi-grid">
     <div class="kpi-card">
       <div class="kpi-label">Total Captured</div>
@@ -396,19 +403,19 @@
       <div class="kpi-sub">all time</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">This Week</div>
-      <div class="kpi-value" id="kpiWeek">—</div>
-      <div class="kpi-sub">last 7 days</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Pending Action</div>
+      <div class="kpi-label">Pending</div>
       <div class="kpi-value" id="kpiPending">—</div>
-      <div class="kpi-sub">high priority</div>
+      <div class="kpi-sub">not yet actioned</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">Duplicates Blocked</div>
-      <div class="kpi-value" id="kpiDup">—</div>
-      <div class="kpi-sub">dedup saves</div>
+      <div class="kpi-label">Implemented</div>
+      <div class="kpi-value" id="kpiDone">—</div>
+      <div class="kpi-sub">published content</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Overdue</div>
+      <div class="kpi-value" id="kpiOverdue">—</div>
+      <div class="kpi-sub">7+ days pending</div>
     </div>
   </div>
 
@@ -423,19 +430,21 @@
       <canvas id="catChart"></canvas>
     </div>
     <div class="chart-card">
-      <div class="chart-title"><span class="dot" style="background:var(--accent2)"></span> Content Action Mix</div>
-      <canvas id="actionChart"></canvas>
+      <div class="chart-title"><span class="dot" style="background:var(--accent2)"></span> Status Overview</div>
+      <canvas id="statusChart"></canvas>
     </div>
   </div>
 
   <div class="strategy-section">
     <div class="section-title">🎬 Content Strategy Queue</div>
     <div class="action-tabs">
-      <button class="tab-btn active" onclick="filterItems('All', this)">All</button>
-      <button class="tab-btn" onclick="filterItems('Reel Idea', this)">🎥 Reel Ideas</button>
+      <button class="tab-btn active" onclick="filterItems('all', this)">All</button>
+      <button class="tab-btn" onclick="filterItems('pending', this)">⏳ Pending</button>
+      <button class="tab-btn" onclick="filterItems('overdue', this)">🔴 Overdue</button>
+      <button class="tab-btn" onclick="filterItems('reviewed', this)">👁️ Reviewed</button>
+      <button class="tab-btn" onclick="filterItems('implemented', this)">✅ Done</button>
+      <button class="tab-btn" onclick="filterItems('Reel Idea', this)">🎥 Reels</button>
       <button class="tab-btn" onclick="filterItems('Carousel', this)">🎠 Carousels</button>
-      <button class="tab-btn" onclick="filterItems('Script Draft', this)">📝 Scripts</button>
-      <button class="tab-btn" onclick="filterItems('Research', this)">🔬 Research</button>
       <button class="tab-btn" onclick="filterItems('News Clip', this)">📰 News</button>
     </div>
     <div class="items-list" id="itemsList">
@@ -446,33 +455,44 @@
 </div>
 
 <footer>
-  Content Intelligence Hub v2.0 — @jigyasubaba Radar System — Built with Google Apps Script + Groq AI
+  Content Intelligence Hub v3.0 — @jigyasubaba Radar System — Built with Google Apps Script + Groq AI
 </footer>
 
 <script>
-// ─── PASTE YOUR APPS SCRIPT EXEC URL HERE ────────────────────
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyTZjztWzrtOW5USirKpU2Zblm3VfAzJLw7ic6YoFsIWT4ljm1gq57_keTCF-OgH6nBFQ/exec";
+const OVERDUE_DAYS = 7;
 
 let allData = [];
 let catChartInst = null;
-let actionChartInst = null;
-let currentFilter = "All";
+let statusChartInst = null;
+let currentFilter = "all";
 
-// ─── LOAD DATA ────────────────────────────────────────────────
 async function loadData() {
   document.getElementById("lastSync").textContent = "Syncing...";
-  document.getElementById("errorBanner").style.display = "none";
-
   try {
     const res = await fetch(APPS_SCRIPT_URL);
     const json = await res.json();
-    allData = json.data || [];
+    allData = (json.data || []).map(function(r) {
+      const ts = r.timestamp ? r.timestamp.toString() : "";
+      const parts = ts.split(",")[0].split("/");
+      let parsedDate = null;
+      if (parts.length === 3) {
+        parsedDate = new Date(parts[2], parts[1] - 1, parts[0]);
+      }
+      const daysPending = parsedDate && !isNaN(parsedDate)
+        ? Math.floor((Date.now() - parsedDate) / (1000 * 60 * 60 * 24))
+        : null;
+      return Object.assign({}, r, {
+        parsedDate: parsedDate,
+        daysPending: daysPending,
+        isOverdue: daysPending !== null && daysPending >= OVERDUE_DAYS && (r.status || "Pending") === "Pending",
+      });
+    });
     renderAll();
     document.getElementById("lastSync").textContent = "Synced " + new Date().toLocaleTimeString("en-IN");
   } catch (e) {
-    document.getElementById("errorBanner").style.display = "block";
-    document.getElementById("lastSync").textContent = "Sync failed";
-    console.error("Load error:", e);
+    document.getElementById("lastSync").textContent = "Sync failed — check URL";
+    console.error(e);
   }
 }
 
@@ -485,14 +505,13 @@ function renderAll() {
 
 function renderKPIs() {
   const total = allData.length;
-  const oneWeekAgo = Date.now() - 7 * 86400000;
-  const week = allData.filter(r => new Date(r.timestamp) > oneWeekAgo).length;
-  const pending = allData.filter(r => r.priority === "High" && r.contentAction !== "Skip" && r.duplicate !== "Yes").length;
-  const dups = allData.filter(r => r.duplicate === "Yes").length;
+  const pending = allData.filter(r => (r.status || "Pending") === "Pending").length;
+  const done = allData.filter(r => r.status === "Implemented").length;
+  const overdue = allData.filter(r => r.isOverdue).length;
   document.getElementById("kpiTotal").textContent = total;
-  document.getElementById("kpiWeek").textContent = week;
   document.getElementById("kpiPending").textContent = pending;
-  document.getElementById("kpiDup").textContent = dups;
+  document.getElementById("kpiDone").textContent = done;
+  document.getElementById("kpiOverdue").textContent = overdue;
 }
 
 const CAT_META = {
@@ -514,7 +533,7 @@ function renderTrendGrid() {
   const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
   const grid = document.getElementById("trendGrid");
   if (sorted.length === 0) {
-    grid.innerHTML = '<div class="loading">No data yet — send URLs to your bot!</div>';
+    grid.innerHTML = '<div class="loading">No data yet</div>';
     return;
   }
   grid.innerHTML = sorted.map(([cat, count]) => {
@@ -530,10 +549,12 @@ function renderTrendGrid() {
 
 function renderCharts() {
   const catCounts = {};
-  const actionCounts = {};
+  allData.forEach(r => { catCounts[r.category] = (catCounts[r.category] || 0) + 1; });
+
+  const statusCounts = { Pending: 0, Reviewed: 0, Implemented: 0, Skipped: 0 };
   allData.forEach(r => {
-    catCounts[r.category] = (catCounts[r.category] || 0) + 1;
-    actionCounts[r.contentAction] = (actionCounts[r.contentAction] || 0) + 1;
+    const s = r.status || "Pending";
+    statusCounts[s] = (statusCounts[s] || 0) + 1;
   });
 
   const palette = ["#7c6af7","#f7c96a","#6af7b8","#f76a8a","#6ac8f7","#c86af7","#f7966a","#aef76a"];
@@ -551,12 +572,17 @@ function renderCharts() {
     }
   });
 
-  if (actionChartInst) actionChartInst.destroy();
-  actionChartInst = new Chart(document.getElementById("actionChart"), {
+  if (statusChartInst) statusChartInst.destroy();
+  statusChartInst = new Chart(document.getElementById("statusChart"), {
     type: "bar",
     data: {
-      labels: Object.keys(actionCounts),
-      datasets: [{ data: Object.values(actionCounts), backgroundColor: palette, borderRadius: 6, borderWidth: 0 }]
+      labels: Object.keys(statusCounts),
+      datasets: [{
+        data: Object.values(statusCounts),
+        backgroundColor: ["#f7c96a","#7c6af7","#6af7b8","#6b6d80"],
+        borderRadius: 6,
+        borderWidth: 0
+      }]
     },
     options: {
       plugins: { legend: { display: false } },
@@ -571,29 +597,43 @@ function renderCharts() {
 function renderItems(filter) {
   currentFilter = filter;
   const list = document.getElementById("itemsList");
-  const filtered = filter === "All" ? allData : allData.filter(r => r.contentAction === filter);
+
+  let filtered = allData;
+  if (filter === "pending") filtered = allData.filter(r => (r.status || "Pending") === "Pending" && !r.isOverdue);
+  else if (filter === "overdue") filtered = allData.filter(r => r.isOverdue);
+  else if (filter === "reviewed") filtered = allData.filter(r => r.status === "Reviewed");
+  else if (filter === "implemented") filtered = allData.filter(r => r.status === "Implemented");
+  else if (filter !== "all") filtered = allData.filter(r => r.contentAction === filter);
 
   if (filtered.length === 0) {
-    list.innerHTML = `<div class="empty-state"><span class="emoji">📭</span>No items for this filter yet.</div>`;
+    list.innerHTML = `<div class="empty-state"><span style="font-size:2.5rem;display:block;margin-bottom:0.5rem">📭</span>No items for this filter.</div>`;
     return;
   }
 
-  list.innerHTML = filtered.slice(0, 20).map(r => {
+  list.innerHTML = filtered.slice(0, 25).map(r => {
     const meta = CAT_META[r.category] || { emoji: "📦", badge: "badge-other" };
     const pClass = r.priority === "High" ? "priority-high" : r.priority === "Medium" ? "priority-medium" : "priority-low";
-    const dupTag = r.duplicate === "Yes" ? " 🔁" : "";
+    const status = r.status || "Pending";
+    const statusClass = "status-" + status.toLowerCase();
     const dateStr = r.timestamp ? r.timestamp.toString().split(",")[0] : "";
-    return `<div class="item-card">
+    const daysText = r.daysPending !== null ? r.daysPending + "d ago" : "";
+    const overdueText = r.isOverdue ? "OVERDUE" : daysText;
+    const daysClass = r.isOverdue ? "overdue-text" : "";
+    const cardClass = r.isOverdue ? "overdue" : status === "Implemented" ? "implemented" : status === "Skipped" ? "skipped" : "";
+
+    return `<div class="item-card ${cardClass}">
       <div>
         <div class="item-badge ${meta.badge}">${meta.emoji} ${r.category}</div>
       </div>
       <div class="item-content">
-        <div class="item-platform">${r.platform} · ${dateStr}${dupTag}</div>
+        <div class="item-platform">${r.platform} · ${dateStr}</div>
         <div class="item-summary">${r.summary}</div>
       </div>
-      <div>
+      <div class="item-right">
         <div class="item-action">${r.contentAction}</div>
         <div class="item-priority ${pClass}">${r.priority}</div>
+        <div class="item-status ${statusClass}">${status}</div>
+        <div class="item-days ${daysClass}">${overdueText}</div>
       </div>
     </div>`;
   }).join("");
@@ -610,4 +650,3 @@ setInterval(loadData, 5 * 60 * 1000);
 </script>
 </body>
 </html>
-
