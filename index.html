@@ -45,7 +45,6 @@
   }
 
   .logo { display: flex; align-items: center; gap: 0.75rem; }
-
   .logo-icon {
     width: 36px; height: 36px;
     background: var(--accent);
@@ -53,50 +52,59 @@
     display: flex; align-items: center; justify-content: center;
     font-size: 18px;
   }
-
   .logo h1 { font-size: 1.1rem; font-weight: 800; letter-spacing: -0.02em; }
-
-  .logo span {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--muted);
-    display: block;
-    letter-spacing: 0.1em;
-  }
+  .logo span { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--muted); display: block; }
 
   .header-right { display: flex; align-items: center; gap: 1rem; }
-
-  .last-sync {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--muted);
-  }
-
+  .last-sync { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--muted); }
   .sync-btn {
-    background: var(--accent);
-    color: white;
-    border: none;
-    padding: 0.4rem 1rem;
-    border-radius: 6px;
-    font-family: 'Syne', sans-serif;
-    font-weight: 600;
-    font-size: 0.8rem;
-    cursor: pointer;
-    transition: opacity 0.2s;
+    background: var(--accent); color: white; border: none;
+    padding: 0.4rem 1rem; border-radius: 6px;
+    font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.8rem;
+    cursor: pointer; transition: opacity 0.2s;
   }
   .sync-btn:hover { opacity: 0.8; }
 
-  .main {
-    position: relative;
-    z-index: 1;
-    padding: 2rem;
-    max-width: 1400px;
-    margin: 0 auto;
+  /* Navigation Tabs */
+  .nav-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    padding: 0 2rem;
+    overflow-x: auto;
   }
 
+  .nav-tab {
+    padding: 0.85rem 1.5rem;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .nav-tab.active {
+    color: var(--text);
+    border-bottom-color: var(--accent);
+  }
+
+  .nav-tab:hover { color: var(--text); }
+
+  .main { padding: 2rem; max-width: 1400px; margin: 0 auto; }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* KPI Grid */
   .kpi-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 1rem;
     margin-bottom: 2rem;
   }
@@ -112,145 +120,83 @@
   }
 
   .kpi-card:hover { border-color: var(--accent); }
-
-  .kpi-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-  }
-
+  .kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
   .kpi-card:nth-child(1)::before { background: var(--accent); }
   .kpi-card:nth-child(2)::before { background: var(--accent2); }
   .kpi-card:nth-child(3)::before { background: var(--accent3); }
   .kpi-card:nth-child(4)::before { background: var(--accent4); }
+  .kpi-card:nth-child(5)::before { background: #6ac8f7; }
 
-  .kpi-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-  }
-
-  .kpi-value {
-    font-size: 2.2rem;
-    font-weight: 800;
-    line-height: 1;
-    margin-bottom: 0.25rem;
-  }
-
+  .kpi-label { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .kpi-value { font-size: 2rem; font-weight: 800; line-height: 1; margin-bottom: 0.25rem; }
   .kpi-card:nth-child(1) .kpi-value { color: var(--accent); }
   .kpi-card:nth-child(2) .kpi-value { color: var(--accent2); }
   .kpi-card:nth-child(3) .kpi-value { color: var(--accent3); }
   .kpi-card:nth-child(4) .kpi-value { color: var(--accent4); }
-
+  .kpi-card:nth-child(5) .kpi-value { color: #6ac8f7; }
   .kpi-sub { font-size: 0.75rem; color: var(--muted); }
 
-  .charts-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-
-  .chart-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.5rem;
-  }
-
+  /* Charts */
+  .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+  .chart-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
   .chart-title {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-bottom: 1.25rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    font-size: 0.85rem; font-weight: 600; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem;
   }
-
   .chart-title .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
   canvas { max-height: 220px; }
 
-  .strategy-section { margin-bottom: 2rem; }
-
+  /* Section title */
   .section-title {
-    font-size: 1rem;
-    font-weight: 800;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+    font-size: 1rem; font-weight: 800; margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* Filter bar */
+  .filter-bar {
+    display: flex; gap: 0.5rem; margin-bottom: 1rem;
+    flex-wrap: wrap; align-items: center;
   }
 
-  .section-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
+  .filter-btn {
+    padding: 0.35rem 0.8rem; border-radius: 20px;
+    border: 1px solid var(--border); background: transparent;
+    color: var(--muted); font-family: 'Syne', sans-serif;
+    font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--accent); border-color: var(--accent); color: white;
   }
 
-  .action-tabs {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
+  .search-box {
+    padding: 0.35rem 0.8rem; border-radius: 20px;
+    border: 1px solid var(--border); background: var(--card);
+    color: var(--text); font-family: 'Syne', sans-serif;
+    font-size: 0.75rem; outline: none; min-width: 200px;
   }
+  .search-box::placeholder { color: var(--muted); }
 
-  .tab-btn {
-    padding: 0.4rem 0.9rem;
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--muted);
-    font-family: 'Syne', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .tab-btn.active, .tab-btn:hover {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: white;
-  }
-
+  /* Items list */
   .items-list { display: flex; flex-direction: column; gap: 0.6rem; }
 
   .item-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1rem 1.25rem;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 1rem;
-    align-items: start;
-    transition: border-color 0.2s;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1rem 1.25rem;
+    display: grid; grid-template-columns: auto 1fr auto;
+    gap: 1rem; align-items: start; transition: border-color 0.2s;
   }
-
   .item-card:hover { border-color: var(--accent); }
-  .item-card.overdue { border-color: var(--accent4); }
-  .item-card.implemented { border-color: var(--accent3); opacity: 0.7; }
-  .item-card.skipped { opacity: 0.4; }
+  .item-card.overdue { border-left: 3px solid var(--accent4); }
+  .item-card.implemented { border-left: 3px solid var(--accent3); }
+  .item-card.skipped { opacity: 0.5; }
 
   .item-badge {
-    padding: 0.25rem 0.6rem;
-    border-radius: 6px;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    white-space: nowrap;
-    margin-top: 2px;
+    padding: 0.25rem 0.6rem; border-radius: 6px;
+    font-family: 'Space Mono', monospace; font-size: 0.6rem;
+    font-weight: 700; white-space: nowrap; margin-top: 2px;
   }
-
   .badge-fraud { background: rgba(247,106,138,0.15); color: var(--accent4); }
   .badge-health { background: rgba(106,247,184,0.15); color: var(--accent3); }
   .badge-finance { background: rgba(247,201,106,0.15); color: var(--accent2); }
@@ -260,114 +206,120 @@
   .badge-ai { background: rgba(247,150,106,0.15); color: #f7966a; }
   .badge-other { background: rgba(107,109,128,0.15); color: var(--muted); }
 
-  .item-content { min-width: 0; }
-
-  .item-platform {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem;
-    color: var(--muted);
-    margin-bottom: 0.25rem;
-  }
-
-  .item-summary { font-size: 0.82rem; line-height: 1.5; color: var(--text); }
+  .item-platform { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--muted); margin-bottom: 0.25rem; }
+  .item-summary { font-size: 0.82rem; line-height: 1.5; }
 
   .item-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.25rem; }
-
-  .item-action {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem;
-    color: var(--accent);
-    text-align: right;
-    white-space: nowrap;
-  }
-
-  .item-priority { font-size: 0.6rem; text-align: right; }
-  .priority-high { color: var(--accent4); }
-  .priority-medium { color: var(--accent2); }
-  .priority-low { color: var(--accent3); }
+  .item-action { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--accent); }
+  .item-priority { font-size: 0.6rem; }
+  .priority-High { color: var(--accent4); }
+  .priority-Medium { color: var(--accent2); }
+  .priority-Low { color: var(--accent3); }
 
   .item-status {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.55rem;
-    padding: 0.15rem 0.4rem;
-    border-radius: 4px;
-    text-align: right;
+    font-family: 'Space Mono', monospace; font-size: 0.55rem;
+    padding: 0.15rem 0.4rem; border-radius: 4px;
+  }
+  .status-Pending { background: rgba(247,201,106,0.15); color: var(--accent2); }
+  .status-Implemented { background: rgba(106,247,184,0.15); color: var(--accent3); }
+  .status-Skipped { background: rgba(107,109,128,0.15); color: var(--muted); }
+  .status-Reviewed { background: rgba(124,106,247,0.15); color: var(--accent); }
+  .status-other { background: rgba(107,109,128,0.15); color: var(--muted); }
+
+  .item-days { font-family: 'Space Mono', monospace; font-size: 0.55rem; color: var(--muted); }
+  .item-days.overdue { color: var(--accent4); font-weight: 700; }
+
+  /* Pipeline cards */
+  .pipeline-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.25rem;
+    margin-bottom: 0.6rem; transition: border-color 0.2s;
+  }
+  .pipeline-card:hover { border-color: var(--accent); }
+
+  .pipeline-header {
+    display: flex; justify-content: space-between;
+    align-items: flex-start; margin-bottom: 0.75rem;
   }
 
-  .status-pending { background: rgba(247,201,106,0.15); color: var(--accent2); }
-  .status-reviewed { background: rgba(124,106,247,0.15); color: var(--accent); }
-  .status-implemented { background: rgba(106,247,184,0.15); color: var(--accent3); }
-  .status-skipped { background: rgba(107,109,128,0.15); color: var(--muted); }
+  .pipeline-id { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--muted); }
+  .pipeline-category { font-size: 0.82rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .pipeline-format { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--accent); }
 
-  .item-days {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.55rem;
-    color: var(--muted);
-    text-align: right;
+  .pipeline-status {
+    font-family: 'Space Mono', monospace; font-size: 0.6rem;
+    padding: 0.2rem 0.5rem; border-radius: 4px;
   }
+  .ps-Draft { background: rgba(247,201,106,0.15); color: var(--accent2); }
+  .ps-Published { background: rgba(106,247,184,0.15); color: var(--accent3); }
+  .ps-In-Progress { background: rgba(124,106,247,0.15); color: var(--accent); }
+  .ps-other { background: rgba(107,109,128,0.15); color: var(--muted); }
 
-  .item-days.overdue-text { color: var(--accent4); font-weight: 700; }
+  .pipeline-hooks { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.5rem; line-height: 1.5; }
+  .pipeline-doc { font-family: 'Space Mono', monospace; font-size: 0.65rem; }
+  .pipeline-doc a { color: var(--accent); text-decoration: none; }
+  .pipeline-doc a:hover { text-decoration: underline; }
 
-  .trend-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.75rem;
-    margin-bottom: 2rem;
-  }
-
-  .trend-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1rem;
-    text-align: center;
+  /* Monetization cards */
+  .money-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.25rem; margin-bottom: 0.6rem;
+    display: grid; grid-template-columns: 1fr auto; gap: 1rem;
     transition: border-color 0.2s;
   }
+  .money-card:hover { border-color: var(--accent2); }
+  .money-type { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--accent2); margin-bottom: 0.25rem; }
+  .money-category { font-size: 0.82rem; font-weight: 600; margin-bottom: 0.25rem; }
+  .money-notes { font-size: 0.75rem; color: var(--muted); }
+  .money-amount { text-align: right; }
+  .money-estimated { font-family: 'Space Mono', monospace; font-size: 1.2rem; font-weight: 700; color: var(--accent2); }
+  .money-actual { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--accent3); }
+  .money-status { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--muted); }
 
+  /* Weekly plan */
+  .week-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.5rem; margin-bottom: 1rem;
+  }
+  .week-header { display: flex; justify-content: space-between; margin-bottom: 1rem; }
+  .week-id { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--accent); }
+  .week-date { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--muted); }
+  .week-plan { font-size: 0.82rem; line-height: 1.8; white-space: pre-wrap; color: var(--text); }
+
+  /* Category radar */
+  .trend-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem; margin-bottom: 2rem; }
+  .trend-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1rem; text-align: center; transition: border-color 0.2s;
+  }
   .trend-card:hover { border-color: var(--accent); }
   .trend-emoji { font-size: 1.5rem; margin-bottom: 0.4rem; }
-  .trend-name { font-size: 0.78rem; font-weight: 600; margin-bottom: 0.25rem; }
+  .trend-name { font-size: 0.72rem; font-weight: 600; margin-bottom: 0.25rem; }
   .trend-count { font-family: 'Space Mono', monospace; font-size: 1.4rem; font-weight: 700; color: var(--accent); }
-  .trend-label { font-size: 0.65rem; color: var(--muted); }
+  .trend-label { font-size: 0.6rem; color: var(--muted); }
 
+  /* Empty state */
   .empty-state {
-    text-align: center;
-    padding: 3rem;
-    color: var(--muted);
-    font-size: 0.85rem;
-    border: 1px dashed var(--border);
-    border-radius: 12px;
+    text-align: center; padding: 3rem; color: var(--muted);
+    font-size: 0.85rem; border: 1px dashed var(--border); border-radius: 12px;
   }
 
   .loading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 3rem;
-    gap: 0.5rem;
-    color: var(--muted);
-    font-family: 'Space Mono', monospace;
-    font-size: 0.75rem;
+    display: flex; align-items: center; justify-content: center;
+    padding: 3rem; gap: 0.5rem; color: var(--muted);
+    font-family: 'Space Mono', monospace; font-size: 0.75rem;
   }
-
   .spinner {
-    width: 16px; height: 16px;
-    border: 2px solid var(--border);
-    border-top-color: var(--accent);
-    border-radius: 50%;
+    width: 16px; height: 16px; border: 2px solid var(--border);
+    border-top-color: var(--accent); border-radius: 50%;
     animation: spin 0.8s linear infinite;
   }
-
   @keyframes spin { to { transform: rotate(360deg); } }
 
   footer {
-    text-align: center;
-    padding: 2rem;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--muted);
-    border-top: 1px solid var(--border);
-    margin-top: 2rem;
+    text-align: center; padding: 2rem;
+    font-family: 'Space Mono', monospace; font-size: 0.65rem;
+    color: var(--muted); border-top: 1px solid var(--border); margin-top: 2rem;
   }
 
   @media (max-width: 900px) {
@@ -375,6 +327,7 @@
     .charts-grid { grid-template-columns: 1fr; }
     .trend-grid { grid-template-columns: repeat(2, 1fr); }
     .main { padding: 1rem; }
+    .nav-tabs { padding: 0 1rem; }
   }
 </style>
 </head>
@@ -385,159 +338,289 @@
     <div class="logo-icon">👁️</div>
     <div>
       <h1>Content Intelligence Hub</h1>
-      <span>@JIGYASUBABA RADAR SYSTEM</span>
+      <span>@JIGYASUBABA RADAR SYSTEM v5.0</span>
     </div>
   </div>
   <div class="header-right">
-    <span class="last-sync" id="lastSync">Not synced yet</span>
-    <button class="sync-btn" onclick="loadData()">↻ Refresh</button>
+    <span class="last-sync" id="lastSync">Not synced</span>
+    <button class="sync-btn" onclick="loadAllData()">↻ Refresh</button>
   </div>
 </header>
 
+<!-- Navigation Tabs -->
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="switchTab('overview', this)">📊 Overview</button>
+  <button class="nav-tab" onclick="switchTab('capture', this)">📥 Captured</button>
+  <button class="nav-tab" onclick="switchTab('pipeline', this)">🎬 Pipeline</button>
+  <button class="nav-tab" onclick="switchTab('monetization', this)">💰 Monetization</button>
+  <button class="nav-tab" onclick="switchTab('weekly', this)">📅 Weekly Plan</button>
+</div>
+
 <div class="main">
 
-  <div class="kpi-grid">
-    <div class="kpi-card">
-      <div class="kpi-label">Total Captured</div>
-      <div class="kpi-value" id="kpiTotal">—</div>
-      <div class="kpi-sub">all time</div>
+  <!-- ═══ OVERVIEW TAB ═══ -->
+  <div class="tab-content active" id="tab-overview">
+
+    <!-- KPIs -->
+    <div class="kpi-grid" style="margin-top:1.5rem">
+      <div class="kpi-card">
+        <div class="kpi-label">Total Captured</div>
+        <div class="kpi-value" id="kpiTotal">—</div>
+        <div class="kpi-sub">all time</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Pipeline Items</div>
+        <div class="kpi-value" id="kpiPipeline">—</div>
+        <div class="kpi-sub">content packs created</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Published</div>
+        <div class="kpi-value" id="kpiPublished">—</div>
+        <div class="kpi-sub">conversion rate: <span id="kpiRate">0</span>%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Overdue</div>
+        <div class="kpi-value" id="kpiOverdue">—</div>
+        <div class="kpi-sub">7+ days pending</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Monetization</div>
+        <div class="kpi-value" id="kpiMoney">—</div>
+        <div class="kpi-sub">opportunities tracked</div>
+      </div>
     </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Pending</div>
-      <div class="kpi-value" id="kpiPending">—</div>
-      <div class="kpi-sub">not yet actioned</div>
+
+    <!-- Category Radar -->
+    <div class="section-title">📡 Category Radar</div>
+    <div class="trend-grid" id="trendGrid">
+      <div class="loading"><div class="spinner"></div> loading...</div>
     </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Implemented</div>
-      <div class="kpi-value" id="kpiDone">—</div>
-      <div class="kpi-sub">published content</div>
+
+    <!-- Charts -->
+    <div class="charts-grid">
+      <div class="chart-card">
+        <div class="chart-title"><span class="dot"></span> Category Breakdown</div>
+        <canvas id="catChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title"><span class="dot" style="background:var(--accent2)"></span> Status Overview</div>
+        <canvas id="statusChart"></canvas>
+      </div>
     </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Overdue</div>
-      <div class="kpi-value" id="kpiOverdue">—</div>
-      <div class="kpi-sub">7+ days pending</div>
+
+    <!-- Charts row 2 -->
+    <div class="charts-grid">
+      <div class="chart-card">
+        <div class="chart-title"><span class="dot" style="background:var(--accent3)"></span> Content Action Mix</div>
+        <canvas id="actionChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title"><span class="dot" style="background:var(--accent4)"></span> Pipeline Status</div>
+        <canvas id="pipelineChart"></canvas>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══ CAPTURED TAB ═══ -->
+  <div class="tab-content" id="tab-capture">
+    <div style="margin-top:1.5rem">
+      <div class="filter-bar">
+        <input class="search-box" id="captureSearch" placeholder="🔍 Search by keyword..." oninput="renderCapture()">
+        <button class="filter-btn active" onclick="setCaptureFilter('all', this)">All</button>
+        <button class="filter-btn" onclick="setCaptureFilter('Pending', this)">⏳ Pending</button>
+        <button class="filter-btn" onclick="setCaptureFilter('overdue', this)">🔴 Overdue</button>
+        <button class="filter-btn" onclick="setCaptureFilter('Must Check', this)">⚡ Must Check</button>
+        <button class="filter-btn" onclick="setCaptureFilter('Implemented', this)">✅ Done</button>
+        <button class="filter-btn" onclick="setCaptureFilter('Skipped', this)">⏭️ Skipped</button>
+      </div>
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="setCatFilter('all', this)" id="catFilterAll">All Categories</button>
+        <button class="filter-btn" onclick="setCatFilter('Fraud & Scams', this)">🔴 Fraud</button>
+        <button class="filter-btn" onclick="setCatFilter('Finance & Investing', this)">🟡 Finance</button>
+        <button class="filter-btn" onclick="setCatFilter('AI & Tech', this)">🤖 AI & Tech</button>
+        <button class="filter-btn" onclick="setCatFilter('Knowledge & Learning', this)">🔵 Learning</button>
+        <button class="filter-btn" onclick="setCatFilter('News & Current Affairs', this)">⚪ News</button>
+        <button class="filter-btn" onclick="setCatFilter('Viral & Trending', this)">🟣 Viral</button>
+      </div>
+      <div id="captureCount" style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--muted);margin-bottom:0.75rem;"></div>
+      <div class="items-list" id="captureList">
+        <div class="loading"><div class="spinner"></div> loading...</div>
+      </div>
     </div>
   </div>
 
-  <div class="section-title">📡 Category Radar</div>
-  <div class="trend-grid" id="trendGrid">
-    <div class="loading"><div class="spinner"></div> loading...</div>
+  <!-- ═══ PIPELINE TAB ═══ -->
+  <div class="tab-content" id="tab-pipeline">
+    <div style="margin-top:1.5rem">
+      <div class="filter-bar">
+        <input class="search-box" id="pipelineSearch" placeholder="🔍 Search pipeline..." oninput="renderPipeline()">
+        <button class="filter-btn active" onclick="setPipelineFilter('all', this)">All</button>
+        <button class="filter-btn" onclick="setPipelineFilter('Draft', this)">📝 Draft</button>
+        <button class="filter-btn" onclick="setPipelineFilter('In Progress', this)">⚡ In Progress</button>
+        <button class="filter-btn" onclick="setPipelineFilter('Published', this)">✅ Published</button>
+        <button class="filter-btn" onclick="setPipelineFilter('Paid Content Planned', this)">💰 Paid Planned</button>
+        <button class="filter-btn" onclick="setPipelineFilter('Rescheduled', this)">📅 Rescheduled</button>
+        <button class="filter-btn" onclick="setPipelineFilter('Not Feasible', this)">❌ Not Feasible</button>
+      </div>
+      <div id="pipelineList">
+        <div class="loading"><div class="spinner"></div> loading...</div>
+      </div>
+    </div>
   </div>
 
-  <div class="charts-grid">
-    <div class="chart-card">
-      <div class="chart-title"><span class="dot"></span> Category Breakdown</div>
-      <canvas id="catChart"></canvas>
-    </div>
-    <div class="chart-card">
-      <div class="chart-title"><span class="dot" style="background:var(--accent2)"></span> Status Overview</div>
-      <canvas id="statusChart"></canvas>
+  <!-- ═══ MONETIZATION TAB ═══ -->
+  <div class="tab-content" id="tab-monetization">
+    <div style="margin-top:1.5rem">
+
+      <!-- Money KPIs -->
+      <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:1.5rem">
+        <div class="kpi-card">
+          <div class="kpi-label">Opportunities</div>
+          <div class="kpi-value" id="moneyCount" style="color:var(--accent2)">—</div>
+          <div class="kpi-sub">tracked</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Est. Potential</div>
+          <div class="kpi-value" id="moneyEstimated" style="color:var(--accent3)">—</div>
+          <div class="kpi-sub">estimated earning</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Actual Earned</div>
+          <div class="kpi-value" id="moneyActual" style="color:var(--accent4)">—</div>
+          <div class="kpi-sub">confirmed earnings</div>
+        </div>
+      </div>
+
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="setMoneyFilter('all', this)">All</button>
+        <button class="filter-btn" onclick="setMoneyFilter('Planned', this)">📋 Planned</button>
+        <button class="filter-btn" onclick="setMoneyFilter('In Progress', this)">⚡ In Progress</button>
+        <button class="filter-btn" onclick="setMoneyFilter('Completed', this)">✅ Completed</button>
+      </div>
+      <div id="moneyList">
+        <div class="loading"><div class="spinner"></div> loading...</div>
+      </div>
     </div>
   </div>
 
-  <div class="strategy-section">
-    <div class="section-title">🎬 Content Strategy Queue</div>
-    <div class="action-tabs">
-      <button class="tab-btn active" onclick="filterItems('all', this)">All</button>
-      <button class="tab-btn" onclick="filterItems('pending', this)">⏳ Pending</button>
-      <button class="tab-btn" onclick="filterItems('overdue', this)">🔴 Overdue</button>
-      <button class="tab-btn" onclick="filterItems('reviewed', this)">👁️ Reviewed</button>
-      <button class="tab-btn" onclick="filterItems('implemented', this)">✅ Done</button>
-      <button class="tab-btn" onclick="filterItems('Reel Idea', this)">🎥 Reels</button>
-      <button class="tab-btn" onclick="filterItems('Carousel', this)">🎠 Carousels</button>
-      <button class="tab-btn" onclick="filterItems('News Clip', this)">📰 News</button>
-    </div>
-    <div class="items-list" id="itemsList">
-      <div class="loading"><div class="spinner"></div> loading content...</div>
+  <!-- ═══ WEEKLY PLAN TAB ═══ -->
+  <div class="tab-content" id="tab-weekly">
+    <div style="margin-top:1.5rem">
+      <div class="section-title">📅 Weekly Content Plans</div>
+      <div id="weeklyList">
+        <div class="loading"><div class="spinner"></div> loading...</div>
+      </div>
     </div>
   </div>
 
 </div>
 
 <footer>
-  Content Intelligence Hub v3.0 — @jigyasubaba Radar System — Built with Google Apps Script + Groq AI
+  Content Intelligence Hub v5.0 — @jigyasubaba Radar System — Cloudflare + Groq AI + Google Sheets
 </footer>
 
 <script>
+// ─── CONFIG ───────────────────────────────────────────────────
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwUhNmRfgLRhfDHsYUPdr3vRi9LH_Kxwak3D7S-zq5aoLkrADMdM9f2y_giRMZy1gqxMw/exec";
 const OVERDUE_DAYS = 7;
 
-let allData = [];
+// ─── STATE ────────────────────────────────────────────────────
+let captureData = [];
+let pipelineData = [];
+let monetizationData = [];
+let weeklyData = [];
+let captureFilter = "all";
+let catFilter = "all";
+let pipelineFilter = "all";
+let moneyFilter = "all";
+
 let catChartInst = null;
 let statusChartInst = null;
-let currentFilter = "all";
+let actionChartInst = null;
+let pipelineChartInst = null;
 
-async function loadData() {
+// ─── TAB SWITCHING ────────────────────────────────────────────
+function switchTab(tabId, btn) {
+  document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+  document.querySelectorAll(".nav-tab").forEach(b => b.classList.remove("active"));
+  document.getElementById("tab-" + tabId).classList.add("active");
+  btn.classList.add("active");
+}
+
+// ─── LOAD ALL DATA ────────────────────────────────────────────
+async function loadAllData() {
   document.getElementById("lastSync").textContent = "Syncing...";
   try {
     const res = await fetch(APPS_SCRIPT_URL);
     const json = await res.json();
-    allData = (json.data || []).map(function(r) {
-      const ts = r.timestamp ? r.timestamp.toString() : "";
-      const parts = ts.split(",")[0].split("/");
-      let parsedDate = null;
-      if (parts.length === 3) {
-        parsedDate = new Date(parts[2], parts[1] - 1, parts[0]);
-      }
-      const daysPending = parsedDate && !isNaN(parsedDate)
-        ? Math.floor((Date.now() - parsedDate) / (1000 * 60 * 60 * 24))
-        : null;
-      return Object.assign({}, r, {
-        parsedDate: parsedDate,
-        daysPending: daysPending,
-        isOverdue: daysPending !== null && daysPending >= OVERDUE_DAYS && (r.status || "Pending") === "Pending",
-      });
-    });
+    captureData = processCapture(json.data || []);
+    pipelineData = json.pipeline || [];
+    monetizationData = json.monetization || [];
+    weeklyData = json.weekly || [];
     renderAll();
     document.getElementById("lastSync").textContent = "Synced " + new Date().toLocaleTimeString("en-IN");
-  } catch (e) {
-    document.getElementById("lastSync").textContent = "Sync failed — check URL";
+  } catch(e) {
+    document.getElementById("lastSync").textContent = "Sync failed";
     console.error(e);
   }
 }
 
+function processCapture(rows) {
+  return rows.map(function(r) {
+    const ts = r.timestamp ? r.timestamp.toString() : "";
+    const parts = ts.split(",")[0].split("/");
+    let parsedDate = null;
+    if (parts.length === 3) parsedDate = new Date(parts[2], parts[1]-1, parts[0]);
+    const daysPending = parsedDate && !isNaN(parsedDate)
+      ? Math.floor((Date.now() - parsedDate) / 86400000) : null;
+    return Object.assign({}, r, {
+      parsedDate: parsedDate,
+      daysPending: daysPending,
+      isOverdue: daysPending !== null && daysPending >= OVERDUE_DAYS &&
+                 (r.status || "Pending") === "Pending",
+    });
+  });
+}
+
 function renderAll() {
-  renderKPIs();
-  renderTrendGrid();
-  renderCharts();
-  renderItems(currentFilter);
+  renderOverview();
+  renderCapture();
+  renderPipeline();
+  renderMonetization();
+  renderWeekly();
 }
 
-function renderKPIs() {
-  const total = allData.length;
-  const pending = allData.filter(r => (r.status || "Pending") === "Pending").length;
-  const done = allData.filter(r => r.status === "Implemented").length;
-  const overdue = allData.filter(r => r.isOverdue).length;
+// ─── OVERVIEW ────────────────────────────────────────────────
+function renderOverview() {
+  const total = captureData.length;
+  const pipelineCount = pipelineData.length;
+  const published = captureData.filter(r => r.status === "Implemented").length;
+  const overdue = captureData.filter(r => r.isOverdue).length;
+  const moneyCount = monetizationData.length;
+  const rate = total > 0 ? Math.round((published/total)*100) : 0;
+
   document.getElementById("kpiTotal").textContent = total;
-  document.getElementById("kpiPending").textContent = pending;
-  document.getElementById("kpiDone").textContent = done;
+  document.getElementById("kpiPipeline").textContent = pipelineCount;
+  document.getElementById("kpiPublished").textContent = published;
+  document.getElementById("kpiRate").textContent = rate;
   document.getElementById("kpiOverdue").textContent = overdue;
-}
+  document.getElementById("kpiMoney").textContent = moneyCount;
 
-const CAT_META = {
-  "Fraud & Scams":         { emoji: "🔴", badge: "badge-fraud" },
-  "Health & Wellness":     { emoji: "🟢", badge: "badge-health" },
-  "Finance & Investing":   { emoji: "🟡", badge: "badge-finance" },
-  "Viral & Trending":      { emoji: "🟣", badge: "badge-viral" },
-  "Knowledge & Learning":  { emoji: "🔵", badge: "badge-knowledge" },
-  "News & Current Affairs":{ emoji: "⚪", badge: "badge-news" },
-  "Personal Branding":     { emoji: "⭐", badge: "badge-other" },
-  "AI & Tech":             { emoji: "🤖", badge: "badge-ai" },
-  "Entertainment":         { emoji: "🎭", badge: "badge-other" },
-  "Other":                 { emoji: "📦", badge: "badge-other" },
-};
-
-function renderTrendGrid() {
-  const counts = {};
-  allData.forEach(r => { counts[r.category] = (counts[r.category] || 0) + 1; });
-  const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+  // Category radar
+  const catCounts = {};
+  captureData.forEach(r => { catCounts[r.category] = (catCounts[r.category]||0)+1; });
+  const sorted = Object.entries(catCounts).sort((a,b)=>b[1]-a[1]);
+  const CAT_META = {
+    "Fraud & Scams": {emoji:"🔴"}, "Health & Wellness": {emoji:"🟢"},
+    "Finance & Investing": {emoji:"🟡"}, "Viral & Trending": {emoji:"🟣"},
+    "Knowledge & Learning": {emoji:"🔵"}, "News & Current Affairs": {emoji:"⚪"},
+    "Personal Branding": {emoji:"⭐"}, "AI & Tech": {emoji:"🤖"},
+    "Entertainment": {emoji:"🎭"}, "Other": {emoji:"📦"},
+  };
   const grid = document.getElementById("trendGrid");
-  if (sorted.length === 0) {
-    grid.innerHTML = '<div class="loading">No data yet</div>';
-    return;
-  }
   grid.innerHTML = sorted.map(([cat, count]) => {
-    const meta = CAT_META[cat] || { emoji: "📦" };
+    const meta = CAT_META[cat] || {emoji:"📦"};
     return `<div class="trend-card">
       <div class="trend-emoji">${meta.emoji}</div>
       <div class="trend-name">${cat}</div>
@@ -545,108 +628,239 @@ function renderTrendGrid() {
       <div class="trend-label">captured</div>
     </div>`;
   }).join("");
-}
 
-function renderCharts() {
-  const catCounts = {};
-  allData.forEach(r => { catCounts[r.category] = (catCounts[r.category] || 0) + 1; });
-
-  const statusCounts = { Pending: 0, Reviewed: 0, Implemented: 0, Skipped: 0 };
-  allData.forEach(r => {
-    const s = r.status || "Pending";
-    statusCounts[s] = (statusCounts[s] || 0) + 1;
-  });
-
+  // Charts
   const palette = ["#7c6af7","#f7c96a","#6af7b8","#f76a8a","#6ac8f7","#c86af7","#f7966a","#aef76a"];
 
   if (catChartInst) catChartInst.destroy();
   catChartInst = new Chart(document.getElementById("catChart"), {
     type: "doughnut",
-    data: {
-      labels: Object.keys(catCounts),
-      datasets: [{ data: Object.values(catCounts), backgroundColor: palette, borderWidth: 0 }]
-    },
-    options: {
-      plugins: { legend: { labels: { color: "#e8e8f0", font: { size: 11 }, boxWidth: 12 } } },
-      cutout: "65%"
-    }
+    data: { labels: Object.keys(catCounts), datasets: [{ data: Object.values(catCounts), backgroundColor: palette, borderWidth: 0 }] },
+    options: { plugins: { legend: { labels: { color: "#e8e8f0", font: { size: 10 }, boxWidth: 12 } } }, cutout: "65%" }
   });
 
+  const statusCounts = {};
+  captureData.forEach(r => { const s = r.status||"Pending"; statusCounts[s]=(statusCounts[s]||0)+1; });
   if (statusChartInst) statusChartInst.destroy();
   statusChartInst = new Chart(document.getElementById("statusChart"), {
     type: "bar",
-    data: {
-      labels: Object.keys(statusCounts),
-      datasets: [{
-        data: Object.values(statusCounts),
-        backgroundColor: ["#f7c96a","#7c6af7","#6af7b8","#6b6d80"],
-        borderRadius: 6,
-        borderWidth: 0
-      }]
-    },
-    options: {
-      plugins: { legend: { display: false } },
-      scales: {
-        y: { ticks: { color: "#6b6d80", font: { size: 10 } }, grid: { color: "#1e2035" } },
-        x: { ticks: { color: "#6b6d80", font: { size: 10 } }, grid: { display: false } }
-      }
-    }
+    data: { labels: Object.keys(statusCounts), datasets: [{ data: Object.values(statusCounts), backgroundColor: palette, borderRadius: 6, borderWidth: 0 }] },
+    options: { plugins: { legend: { display: false } }, scales: { y: { ticks: { color:"#6b6d80",font:{size:10} }, grid: { color:"#1e2035" } }, x: { ticks: { color:"#6b6d80",font:{size:9} }, grid: { display:false } } } }
+  });
+
+  const actionCounts = {};
+  captureData.forEach(r => { actionCounts[r.contentAction]=(actionCounts[r.contentAction]||0)+1; });
+  if (actionChartInst) actionChartInst.destroy();
+  actionChartInst = new Chart(document.getElementById("actionChart"), {
+    type: "bar",
+    data: { labels: Object.keys(actionCounts), datasets: [{ data: Object.values(actionCounts), backgroundColor: palette, borderRadius: 6, borderWidth: 0 }] },
+    options: { plugins: { legend: { display: false } }, scales: { y: { ticks: { color:"#6b6d80",font:{size:10} }, grid: { color:"#1e2035" } }, x: { ticks: { color:"#6b6d80",font:{size:9} }, grid: { display:false } } } }
+  });
+
+  const pipelineCounts = {};
+  pipelineData.forEach(r => { const s = r.status||"Draft"; pipelineCounts[s]=(pipelineCounts[s]||0)+1; });
+  if (pipelineChartInst) pipelineChartInst.destroy();
+  pipelineChartInst = new Chart(document.getElementById("pipelineChart"), {
+    type: "doughnut",
+    data: { labels: Object.keys(pipelineCounts), datasets: [{ data: Object.values(pipelineCounts), backgroundColor: palette, borderWidth: 0 }] },
+    options: { plugins: { legend: { labels: { color: "#e8e8f0", font: { size: 10 }, boxWidth: 12 } } }, cutout: "65%" }
   });
 }
 
-function renderItems(filter) {
-  currentFilter = filter;
-  const list = document.getElementById("itemsList");
+// ─── CAPTURE TAB ──────────────────────────────────────────────
+const BADGE_MAP = {
+  "Fraud & Scams":"badge-fraud","Health & Wellness":"badge-health",
+  "Finance & Investing":"badge-finance","Viral & Trending":"badge-viral",
+  "Knowledge & Learning":"badge-knowledge","News & Current Affairs":"badge-news",
+  "AI & Tech":"badge-ai",
+};
+const CAT_EMOJI = {
+  "Fraud & Scams":"🔴","Health & Wellness":"🟢","Finance & Investing":"🟡",
+  "Viral & Trending":"🟣","Knowledge & Learning":"🔵","News & Current Affairs":"⚪",
+  "Personal Branding":"⭐","AI & Tech":"🤖","Entertainment":"🎭","Other":"📦",
+};
 
-  let filtered = allData;
-  if (filter === "pending") filtered = allData.filter(r => (r.status || "Pending") === "Pending" && !r.isOverdue);
-  else if (filter === "overdue") filtered = allData.filter(r => r.isOverdue);
-  else if (filter === "reviewed") filtered = allData.filter(r => r.status === "Reviewed");
-  else if (filter === "implemented") filtered = allData.filter(r => r.status === "Implemented");
-  else if (filter !== "all") filtered = allData.filter(r => r.contentAction === filter);
+function setCaptureFilter(f, btn) {
+  captureFilter = f;
+  document.querySelectorAll("#tab-capture .filter-bar:first-child .filter-btn").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  renderCapture();
+}
 
+function setCatFilter(f, btn) {
+  catFilter = f;
+  document.querySelectorAll("#tab-capture .filter-bar:nth-child(2) .filter-btn").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  renderCapture();
+}
+
+function renderCapture() {
+  const search = (document.getElementById("captureSearch").value || "").toLowerCase();
+  let filtered = captureData;
+
+  if (captureFilter === "overdue") filtered = filtered.filter(r => r.isOverdue);
+  else if (captureFilter !== "all") filtered = filtered.filter(r => (r.status||"Pending") === captureFilter);
+
+  if (catFilter !== "all") filtered = filtered.filter(r => r.category === catFilter);
+
+  if (search) filtered = filtered.filter(r =>
+    (r.summary||"").toLowerCase().includes(search) ||
+    (r.category||"").toLowerCase().includes(search) ||
+    (r.subCategory||"").toLowerCase().includes(search) ||
+    (r.platform||"").toLowerCase().includes(search)
+  );
+
+  document.getElementById("captureCount").textContent = filtered.length + " items";
+
+  const list = document.getElementById("captureList");
   if (filtered.length === 0) {
-    list.innerHTML = `<div class="empty-state"><span style="font-size:2.5rem;display:block;margin-bottom:0.5rem">📭</span>No items for this filter.</div>`;
+    list.innerHTML = '<div class="empty-state">📭 No items match this filter.</div>';
     return;
   }
 
-  list.innerHTML = filtered.slice(0, 25).map(r => {
-    const meta = CAT_META[r.category] || { emoji: "📦", badge: "badge-other" };
-    const pClass = r.priority === "High" ? "priority-high" : r.priority === "Medium" ? "priority-medium" : "priority-low";
+  list.innerHTML = filtered.slice(0,30).map(r => {
+    const badge = BADGE_MAP[r.category] || "badge-other";
+    const emoji = CAT_EMOJI[r.category] || "📦";
+    const pClass = "priority-" + r.priority;
     const status = r.status || "Pending";
-    const statusClass = "status-" + status.toLowerCase();
+    const sClass = ["Pending","Implemented","Skipped","Reviewed"].includes(status) ? "status-"+status : "status-other";
     const dateStr = r.timestamp ? r.timestamp.toString().split(",")[0] : "";
-    const daysText = r.daysPending !== null ? r.daysPending + "d ago" : "";
-    const overdueText = r.isOverdue ? "OVERDUE" : daysText;
-    const daysClass = r.isOverdue ? "overdue-text" : "";
+    const daysText = r.daysPending !== null ? r.daysPending + "d" : "";
+    const overdueText = r.isOverdue ? "⚠️ OVERDUE" : daysText;
+    const daysClass = r.isOverdue ? "overdue" : "";
     const cardClass = r.isOverdue ? "overdue" : status === "Implemented" ? "implemented" : status === "Skipped" ? "skipped" : "";
 
     return `<div class="item-card ${cardClass}">
-      <div>
-        <div class="item-badge ${meta.badge}">${meta.emoji} ${r.category}</div>
-      </div>
+      <div><div class="item-badge ${badge}">${emoji} ${r.category}</div></div>
       <div class="item-content">
-        <div class="item-platform">${r.platform} · ${dateStr}</div>
+        <div class="item-platform">${r.platform} · ${dateStr} · Row ${r.rowNumber}</div>
         <div class="item-summary">${r.summary}</div>
       </div>
       <div class="item-right">
         <div class="item-action">${r.contentAction}</div>
         <div class="item-priority ${pClass}">${r.priority}</div>
-        <div class="item-status ${statusClass}">${status}</div>
+        <div class="item-status ${sClass}">${status}</div>
         <div class="item-days ${daysClass}">${overdueText}</div>
       </div>
     </div>`;
   }).join("");
 }
 
-function filterItems(filter, btn) {
-  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+// ─── PIPELINE TAB ─────────────────────────────────────────────
+function setPipelineFilter(f, btn) {
+  pipelineFilter = f;
+  document.querySelectorAll("#tab-pipeline .filter-btn").forEach(b=>b.classList.remove("active"));
   btn.classList.add("active");
-  renderItems(filter);
+  renderPipeline();
 }
 
-loadData();
-setInterval(loadData, 5 * 60 * 1000);
+function renderPipeline() {
+  const search = (document.getElementById("pipelineSearch").value || "").toLowerCase();
+  let filtered = pipelineData;
+
+  if (pipelineFilter !== "all") filtered = filtered.filter(r => (r.status||"Draft") === pipelineFilter);
+
+  if (search) filtered = filtered.filter(r =>
+    (r.category||"").toLowerCase().includes(search) ||
+    (r.hook||"").toLowerCase().includes(search) ||
+    (r.format||"").toLowerCase().includes(search)
+  );
+
+  const list = document.getElementById("pipelineList");
+  if (filtered.length === 0) {
+    list.innerHTML = '<div class="empty-state">📭 No pipeline items yet.<br>Use /create [row] in your bot to generate content packs.</div>';
+    return;
+  }
+
+  list.innerHTML = filtered.map(r => {
+    const status = r.status || "Draft";
+    const psClass = "ps-" + status.replace(/\s+/g, "-");
+    const hookPreview = (r.hook||"").substring(0, 150);
+
+    return `<div class="pipeline-card">
+      <div class="pipeline-header">
+        <div>
+          <div class="pipeline-id">${r.pipelineId || ""} · Row ${r.contentRow || ""} · ${r.createdAt || ""}</div>
+          <div class="pipeline-category">${r.category || ""}</div>
+          <div class="pipeline-format">${r.format || ""}</div>
+        </div>
+        <div class="pipeline-status ${psClass}">${status}</div>
+      </div>
+      <div class="pipeline-hooks">${hookPreview}${hookPreview.length >= 150 ? "..." : ""}</div>
+      ${r.docUrl ? `<div class="pipeline-doc">📄 <a href="${r.docUrl}" target="_blank">Open Google Doc →</a></div>` : ""}
+    </div>`;
+  }).join("");
+}
+
+// ─── MONETIZATION TAB ─────────────────────────────────────────
+function setMoneyFilter(f, btn) {
+  moneyFilter = f;
+  document.querySelectorAll("#tab-monetization .filter-btn").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  renderMonetization();
+}
+
+function renderMonetization() {
+  let filtered = monetizationData;
+  if (moneyFilter !== "all") filtered = filtered.filter(r => (r.status||"Planned") === moneyFilter);
+
+  document.getElementById("moneyCount").textContent = monetizationData.length;
+
+  // Calculate totals
+  let estimated = 0, actual = 0;
+  monetizationData.forEach(r => {
+    const e = parseFloat(String(r.estimatedEarning).replace(/[^0-9.]/g,""));
+    const a = parseFloat(String(r.actualEarning).replace(/[^0-9.]/g,""));
+    if (!isNaN(e)) estimated += e;
+    if (!isNaN(a)) actual += a;
+  });
+  document.getElementById("moneyEstimated").textContent = estimated > 0 ? "₹" + estimated.toLocaleString("en-IN") : "TBD";
+  document.getElementById("moneyActual").textContent = actual > 0 ? "₹" + actual.toLocaleString("en-IN") : "₹0";
+
+  const list = document.getElementById("moneyList");
+  if (filtered.length === 0) {
+    list.innerHTML = '<div class="empty-state">💰 No monetization entries yet.<br>Reply to a content pack with "paid later" to add entries.</div>';
+    return;
+  }
+
+  list.innerHTML = filtered.map(r => {
+    return `<div class="money-card">
+      <div>
+        <div class="money-type">${r.monetizationType || "Paid Content"}</div>
+        <div class="money-category">${r.category || ""} · Row ${r.contentRow || ""}</div>
+        <div class="money-notes">${r.notes || ""}</div>
+        <div class="money-status">${r.status || "Planned"} · ${r.createdAt || ""}</div>
+      </div>
+      <div class="money-amount">
+        <div class="money-estimated">${r.estimatedEarning || "TBD"}</div>
+        <div class="money-actual">Actual: ${r.actualEarning || "—"}</div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+// ─── WEEKLY TAB ───────────────────────────────────────────────
+function renderWeekly() {
+  const list = document.getElementById("weeklyList");
+  if (!weeklyData || weeklyData.length === 0) {
+    list.innerHTML = '<div class="empty-state">📅 No weekly plans yet.<br>Send /week to your bot to generate a content calendar.</div>';
+    return;
+  }
+
+  list.innerHTML = weeklyData.slice().reverse().map(r => {
+    return `<div class="week-card">
+      <div class="week-header">
+        <div class="week-id">${r.weekId || ""} · Week of ${r.weekStart || ""}</div>
+        <div class="week-date">${r.createdAt || ""}</div>
+      </div>
+      <div class="week-plan">${r.planText || ""}</div>
+    </div>`;
+  }).join("");
+}
+
+// ─── INIT ─────────────────────────────────────────────────────
+loadAllData();
+setInterval(loadAllData, 5 * 60 * 1000);
 </script>
 </body>
 </html>
